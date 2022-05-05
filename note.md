@@ -158,15 +158,21 @@ cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
 
 
 
-
 sh-4.4# docker
 Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
 Error: missing command 'podman COMMAND'
 Try 'podman --help' for more information.
 
 
+    
+    
+podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+podman run --privileged -d -it --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
 
-
+    
+cephadm --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+cephadm --docker --no-container-init --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+cephadm --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
 
 
 yum -y install dbus-devel
@@ -195,8 +201,8 @@ docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --cap-add SYS_ADMIN -p 8000:8
 
 
 
-
-
+yum install fuse-overlayfs
+podman --storage-opt mount_program=/usr/bin/fuse-overlayfs pull docker.io/ceph/ceph:v16.2.5
 
 
 
@@ -214,18 +220,54 @@ RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|
 
 
 
+Avec volume 
+    
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/podman pull docker.io/ceph/ceph:v16
+/usr/bin/podman: stderr time="2022-05-05T17:59:38Z" level=error msg="Failed to built-in GetDriver graph btrfs /var/lib/containers/storage"
+/usr/bin/podman: stderr Error: open /etc/containers/policy.json: no such file or directory
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull docker.io/ceph/ceph:v16
 
 
+    
+Sans volume 
 
-
-
-
-
-
-
-
-/usr/local/bin/systemctl start chronyd
-
-
-
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+    
+    
+    
+    
+sh-4.4# docker --storage-opt mount_program=/usr/bin/fuse-overlayfs pull docker.io/ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Getting image source signatures
+Copying blob 77890c5669f6 done  
+Copying blob 7a0437f04f83 done  
+Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root293699698: operation not permitted
 
