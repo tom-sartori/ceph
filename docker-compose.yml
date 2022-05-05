@@ -1,0 +1,22 @@
+services: 
+  ceph: 
+#    image: ceph/ceph:v16
+    build: .  
+#    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    container_name: ceph
+    ports: 
+      - 6000:6000
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+#    security_opt:
+#      - seccomp:unconfined
+    tmpfs:
+      - /run
+      - /run/lock
+    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./etc/containers/:/etc/containers/
+      - ./var/lib/containers/:/var/lib/containers/
+      - ./var/run/containers/:/var/run/containers/
