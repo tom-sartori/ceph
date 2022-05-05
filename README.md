@@ -59,3 +59,22 @@ Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
 Pulling container image ceph/ceph:v16.2.5...
 ```
 Never stop loading. 
+
+---  
+
+[Doc : deployment-in-an-isolated-environment](https://docs.ceph.com/en/latest/cephadm/install/#deployment-in-an-isolated-environment)
+
+```sh
+sh-4.4# podman run --privileged -d -it --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Resolved "registry" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
+Trying to pull docker.io/library/registry:2...
+Getting image source signatures
+Copying blob 52dc419b0ee2 done  
+Copying blob b6846b9db566 done  
+Copying blob df9b9388f04a done  
+Copying blob b0a23bbf973d done  
+Copying blob c50f110701a7 done  
+Error: writing blob: adding layer with blob "sha256:df9b9388f04ad6279a7410b85cedfdcb2208c0a003da7ab5613af71079148139": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root359381896: operation not permitted
+```
+
+
