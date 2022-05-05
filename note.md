@@ -137,9 +137,8 @@ chmod u+x /usr/local/bin/systemctl
 
 
 cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
-cephadm --docker --image "ceph/ceph:v16.2.5" bootstrap --mon-ip 172.17.0.2
 
-cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+cephadm --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
 
 
 
