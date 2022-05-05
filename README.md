@@ -17,7 +17,6 @@ cephadm --image ceph/ceph:v16.2.5 bootstrap --mon-ip $IFCONFIG:6000
 
 ## Errors :  
 
-`cephadm --docker bootstrap --mon-ip 127.0.0.1:6000`
 ```
 sh-4.4# cephadm --docker bootstrap --mon-ip 127.0.0.1:6000
 Verifying podman|docker is present...
