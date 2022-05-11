@@ -1,29 +1,23 @@
-FROM ceph/ceph:v16.2.5
+FROM quay.io/ceph/ceph:v17.2
 
 
-# Error: Failed to download metadata for repo 'appstream': Cannot prepare internal mirrorlist: No URLs in mirrorlist
-RUN cd /etc/yum.repos.d/
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN dnf config-manager --set-enabled powertools	
+RUN dnf -y update	
+RUN dnf module list | grep container-tools
 
 
-# ERROR: No container engine binary found (podman or docker). Try run `apt/dnf/yum/zypper install <container engine>`
-RUN yum install -y docker
+RUN yum update
+RUN rpm -aq | grep selinux
+RUN yum install -y policycoreutils policycoreutils-python-utils setools setools-console setroubleshoot
 
 
-RUN yum install -y net-tools
+COPY ./config /etc/selinux/config
 
 
-# Systemd
-RUN yum install -y wget
-RUN yum install -y python2
-RUN yum -y install dbus-devel
-RUN wget https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl.py -O /usr/local/bin/systemctl
-RUN chmod u+x /usr/local/bin/systemctl
-
-# Chrony
-# No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
-RUN yum install -y chrony 
+RUN yum makecache --refresh
+RUN yum -y install container-selinux
 
 
-CMD /usr/sbin/init
+RUN dnf install -y @container-tools
+
+CMD [ "/sbin/init" ]

@@ -1,0 +1,172 @@
+Try to restart from the beginning the installation of this container. 
+
+
+Image 
+	https://quay.io/repository/ceph/ceph?tab=tags
+	Last version : v17.2
+	docker pull quay.io/ceph/ceph:v17.2
+
+
+Run container
+	docker-compose up --build --force-recreate -d
+	docker exec -it ceph sh
+
+
+Ceph doc
+	https://docs.ceph.com/en/latest/cephadm/install/
+
+
+Requirements 
+	Python 3
+	Systemd
+		https://medium.com/swlh/docker-and-systemd-381dfd7e4628
+	Podman or Docker for running containers
+	Time synchronization (such as chrony or NTP)
+	LVM2 for provisioning storage devices
+
+
+cephadm bootstrap
+
+	ERROR: No container engine binary found (podman or docker). Try run `apt/dnf/yum/zypper install <container engine>`
+		yum install -y podman
+		Failed: container-selinux-2:2.180.0-1.module_el8.7.0+1106+45480ee0.noarch  
+		podman version 4.0.2
+
+
+	Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+	/usr/bin/podman: stderr time="2022-05-11T15:17:15Z" level=warning msg="\"/\" is not a shared mount, this could cause issues or missing mounts with rootless containers"
+
+		sh-4.4# podman version --format {{.Client.Version}}
+		WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers 
+		cannot clone: Operation not permitted
+		Error: cannot re-exec process
+
+
+
+ifconfig
+	yum install -y net-tools
+	172.20.0.2
+
+
+cephadm bootstrap --mon-ip 172.20.0.2
+
+
+cephadm install
+cephadm install ceph-common
+
+
+
+https://podman.io/getting-started/installation
+
+	yum install -y \
+		conmon \
+		containernetworking-plugins \
+		containers-common \
+		crun \
+		git \
+		glib2-devel \
+		glibc-devel \
+		go \
+		golang-github-cpuguy83-md2man \
+		iptables \
+		libgpg-error-devel \
+		libseccomp-devel \
+		libselinux-devel \
+		make \
+		pkgconfig
+
+	sysctl kernel.unprivileged_userns_clone=1
+
+	echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
+
+
+
+yum install policycoreutils-python-utils
+
+
+
+
+
+
+
+
+
+
+
+
+# Podman installation. 
+
+https://computingforgeeks.com/how-to-install-and-use-podman-on-centos-rhel/
+
+dnf config-manager --set-enabled powertools	
+dnf -y update	
+dnf module list | grep container-tools
+
+dnf install -y @container-tools	
+Failed : container-selinux-2:2.180.0-1.module_el8.7.0+1106+45480ee0.noarch  
+	https://installati.one/centos/8/container-selinux/
+	
+	dnf makecache --refresh
+	dnf -y install container-selinux
+	||
+	yum makecache --refresh
+	yum -y install container-selinux
+
+	Running scriptlet: container-selinux-2:2.180.0-1.module_el8.7.0+1106+45480ee0.noarch                             1/1 
+	/var/tmp/rpm-tmp.Ts43f1: line 2: /etc/selinux/config: No such file or directory
+	error: %prein(container-selinux-2:2.180.0-1.module_el8.7.0+1106+45480ee0.noarch) scriptlet failed, exit status 1
+
+		https://www.linode.com/docs/guides/a-beginners-guide-to-selinux-on-centos-8/
+		
+		yum update
+		rpm -aq | grep selinux
+		yum install -y policycoreutils policycoreutils-python-utils setools setools-console setroubleshoot
+
+		# sestatus -> disabled. 
+
+
+	yum makecache --refresh
+	yum -y install container-selinux
+dnf install -y @container-tools
+
+podman version 
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+
+# Volume /var/lib/containers/
+
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+
+
+
+
+
+
+
+
+
+# fuse-overlayfs installation. 
+	dnf makecache --refresh
+	dnf -y install fuse-overlayfs
+
+
+
+
+
+# LVM2 setup
+	https://installati.one/centos/8/lvm2/
+
+	dnf makecache --refresh
+	dnf -y install lvm2
+
+
+
+
+
+
+
+
+
+    devices:
+      - /dev/fuse
+
+

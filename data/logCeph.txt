@@ -1,0 +1,2244 @@
+Last login: Thu May  5 19:57:57 on ttys000
+You have mail.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Installing packages ['chrony']...
+Enabling unit chronyd.service
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 112fe874-cc9d-11ec-87d2-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/podman pull docker.io/ceph/ceph:v16
+/usr/bin/podman: stderr time="2022-05-05T17:59:11Z" level=error msg="Failed to built-in GetDriver graph btrfs /var/lib/containers/storage"
+/usr/bin/podman: stderr Error: open /etc/containers/policy.json: no such file or directory
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull docker.io/ceph/ceph:v16
+sh-4.4# /usr/local/bin/systemctl start chronyd
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 41  bytes 4190 (4.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 34  bytes 3040 (2.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 8  bytes 888 (888.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8  bytes 888 (888.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 21936e02-cc9d-11ec-92fe-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/podman pull docker.io/ceph/ceph:v16
+/usr/bin/podman: stderr time="2022-05-05T17:59:38Z" level=error msg="Failed to built-in GetDriver graph btrfs /var/lib/containers/storage"
+/usr/bin/podman: stderr Error: open /etc/containers/policy.json: no such file or directory
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull docker.io/ceph/ceph:v16
+sh-4.4# MBP-de-Tom:~ tom$ 
+MBP-de-Tom:~ tom$ 
+MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Installing packages ['chrony']...
+Enabling unit chronyd.service
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 9868b640-cc9d-11ec-b652-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# /usr/local/bin/systemctl start chronyd
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 26  bytes 2478 (2.4 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 14  bytes 1146 (1.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 4  bytes 444 (444.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4  bytes 444 (444.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 9e981092-cc9d-11ec-9aa4-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# pwd
+/
+sh-4.4# ms
+sh: ms: command not found
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+sh-4.4#  
+sh-4.4# MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# ifconf
+sh: ifconf: command not found
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 10  bytes 876 (876.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# /usr/local/bin/systemctl start chronyd
+
+sh-4.4# 
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 66a4a5c8-cc9e-11ec-81e1-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# 
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2     
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 691edaa8-cc9e-11ec-9265-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# /usr/bin/docker pull docker.io/ceph/ceph:v16
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+sh-4.4# ls /etc/containers/
+certs.d  oci  policy.json  registries.conf  registries.conf.d  registries.d  storage.conf
+sh-4.4# docker images
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+sh-4.4# podman images
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2 --single-host-defaults
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: d22176c8-cc9e-11ec-8e0e-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Adjusting default settings to suit single-host cluster...
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# docker
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# podman
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# podman container
+Error: missing command 'podman container COMMAND'
+Try 'podman container --help' for more information.
+sh-4.4# podman 
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# podman --help
+Manage pods, containers and images
+
+Usage:
+  podman [options] [command]
+
+Available Commands:
+  attach      Attach to a running container
+  auto-update Auto update containers according to their auto-update policy
+  build       Build an image using instructions from Containerfiles
+  commit      Create new image based on the changed container
+  container   Manage containers
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create but do not start a container
+  diff        Display the changes to the object's file system
+  events      Show podman events
+  exec        Run a process in a running container
+  export      Export container's filesystem contents as a tar archive
+  generate    Generate structured data based on containers, pods or volumes.
+  healthcheck Manage health checks on containers
+  help        Help about any command
+  history     Show history of a specified image
+  image       Manage images
+  images      List images in local storage
+  import      Import a tarball to create a filesystem image
+  info        Display podman system information
+  init        Initialize one or more containers
+  inspect     Display the configuration of object denoted by ID
+  kill        Kill one or more running containers with a specific signal
+  load        Load image(s) from a tar archive
+  login       Login to a container registry
+  logout      Logout of a container registry
+  logs        Fetch the logs of one or more containers
+  machine     Manage a virtual machine
+  manifest    Manipulate manifest lists and image indexes
+  mount       Mount a working container's root filesystem
+  network     Manage networks
+  pause       Pause all the processes in one or more containers
+  play        Play containers, pods or volumes from a structured file.
+  pod         Manage pods
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image from a registry
+  push        Push an image to a specified destination
+  rename      Rename an existing container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Removes one or more images from local storage
+  run         Run a command in a new container
+  save        Save image(s) to an archive
+  search      Search registry for image
+  secret      Manage secrets
+  start       Start one or more containers
+  stats       Display a live stream of container resource usage statistics
+  stop        Stop one or more containers
+  system      Manage podman
+  tag         Add an additional name to a local image
+  top         Display the running processes of a container
+  unmount     Unmounts working container's root filesystem
+  unpause     Unpause the processes in one or more containers
+  unshare     Run a command in a modified user namespace
+  untag       Remove a name from a local image
+  version     Display the Podman Version Information
+  volume      Manage volumes
+  wait        Block on one or more containers
+
+Options:
+      --cgroup-manager string      Cgroup manager to use ("cgroupfs"|"systemd") (default "systemd")
+      --cni-config-dir string      Path of the configuration directory for CNI networks (default "/usr/libexec/cni")
+      --conmon string              Path of the conmon binary
+  -c, --connection string          Connection to use for remote Podman service
+      --events-backend string      Events backend to use ("file"|"journald"|"none") (default "file")
+      --help                       Help for podman
+      --hooks-dir strings          Set the OCI hooks directory path (may be set multiple times) (default [/usr/share/containers/oci/hooks.d])
+      --identity string            path to SSH identity file, (CONTAINER_SSHKEY)
+      --log-level string           Log messages above specified level (trace, debug, info, warn, warning, error, fatal, panic) (default "warn")
+      --namespace string           Set the libpod namespace, used to create separate views of the containers and pods on the system
+      --network-cmd-path string    Path to the command for configuring the network
+  -r, --remote                     Access remote Podman service (default false)
+      --root string                Path to the root directory in which data, including images, is stored
+      --runroot string             Path to the 'run directory' where all state information is stored
+      --runtime string             Path to the OCI-compatible binary used to run containers, default is /usr/bin/runc
+      --runtime-flag stringArray   add global flags for the container runtime
+      --storage-driver string      Select which storage driver is used to manage storage of images and containers (default is overlay)
+      --storage-opt stringArray    Used to pass an option to the storage driver
+      --syslog                     Output logging information to syslog as well as the console (default false)
+      --tmpdir string              Path to the tmp directory for libpod state content.
+                                   
+                                   Note: use the environment variable 'TMPDIR' to change the temporary storage location for container images, '/var/tmp'.
+                                   
+      --url string                 URL to access Podman service (CONTAINER_HOST) (default "unix:/run/podman/podman.sock")
+  -v, --version                    version for podman
+sh-4.4# podman docker
+Error: unrecognized command `podman docker`
+Try 'podman --help' for more information.
+sh-4.4# podman pull ceph/ceph
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+sh-4.4# podman ps
+Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+sh-4.4# ls /var/lib/
+alternatives/  containers/    games/         misc/          private/       rsyslog/       systemd/
+ceph/          dbus/          gssproxy/      nfs/           rpcbind/       samba/         
+cephadm/       dhclient/      initramfs/     polkit-1/      rpm/           selinux/       
+chrony/        dnf/           logrotate/     portables/     rpm-state/     smartmontools/ 
+sh-4.4# ls /var/lib/containers/ 
+sigstore  storage
+sh-4.4# MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# /usr/local/bin/systemctl start chronyd
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 3351e3aa-cca0-11ec-b7a3-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# sudo cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Installing packages ['chrony']...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Repeating the final host check...
+podman|docker (/bin/docker) is present
+systemctl is present
+lvcreate is present
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+ERROR: No time synchronization is active
+sh-4.4# /usr/local/bin/systemctl start chronyd
+sh-4.4# sudo cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Installing packages ['chrony']...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Repeating the final host check...
+podman|docker (/bin/docker) is present
+systemctl is present
+lvcreate is present
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+ERROR: No time synchronization is active
+sh-4.4# sudo /usr/local/bin/systemctl start chronyd
+sh-4.4# sudo cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Installing packages ['chrony']...
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+Repeating the final host check...
+podman|docker (/bin/docker) is present
+systemctl is present
+lvcreate is present
+No time sync service is running; checked for ['chrony.service', 'chronyd.service', 'systemd-timesyncd.service', 'ntpd.service', 'ntp.service', 'ntpsec.service']
+ERROR: No time synchronization is active
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 59e5c400-cca0-11ec-9547-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2     
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 7296da66-cca0-11ec-a72e-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# docker
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# podman
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# podman ps
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# sudo podman ps
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# /usr/local/bin/systemctl start chronyd
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2:6000
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2     
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: d1580f7a-cca0-11ec-81fa-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# /usr/bin/docker pull docker.io/ceph/ceph:v16
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman pull ceph/ceph
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# PATH
+sh: PATH: command not found
+sh-4.4# echo PATH
+PATH
+sh-4.4# echo *PATH
+*PATH
+sh-4.4# echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+sh-4.4# whereis storage.conf
+storage:
+sh-4.4# 
+sh-4.4# find storage.conf
+find: 'storage.conf': No such file or directory
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+sh-4.4# ls var/
+.updated  cache/    db/       ftp/      gopher/   lib/      lock/     mail/     opt/      run/      tmp/
+adm/      crash/    empty/    games/    kerberos/ local/    log/      nis/      preserve/ spool/    yp/
+sh-4.4# ls var/lib/     
+alternatives/  cni/           dnf/           logrotate/     portables/     rpm-state/     smartmontools/
+ceph/          containers/    games/         misc/          private/       rsyslog/       systemd/
+cephadm/       dbus/          gssproxy/      nfs/           rpcbind/       samba/         
+chrony/        dhclient/      initramfs/     polkit-1/      rpm/           selinux/       
+sh-4.4# ls var/lib/containers/
+storage
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+sh-4.4# ls var/lib/containers/
+.DS_Store  storage/   
+sh-4.4# ls var/lib/containers/storage/
+libpod/       mounts/       overlay/      storage.lock  tmp/          userns.lock   
+sh-4.4# ls var/lib/containers/storage/          
+libpod	mounts	overlay  storage.lock  tmp  userns.lock
+sh-4.4# cat /var/lib/containers/storage/storage.lock 
+sh-4.4# yum install fuse-overlayfs
+Last metadata expiration check: 1 day, 20:01:24 ago on Tue May  3 22:34:15 2022.
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Package fuse-overlayfs-1.7.1-1.module_el8.5.0+890+6b136101.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+sh-4.4# podman --storage-opt mount_program=/usr/bin/fuse-overlayfs pull ceph/ceph
+
+Error: ^C
+sh-4.4# podman --storage-opt mount_program=/usr/bin/fuse-overlayfs pull ceph/ceph:v16.2.5
+✔ docker.io/ceph/ceph:v16.2.5
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Error: initializing source docker://ceph/ceph:v16.2.5: Get "https://auth.docker.io/token?scope=repository%3Aceph%2Fceph%3Apull&service=registry.docker.io": dial tcp: lookup auth.docker.io on 127.0.0.11:53: read udp 127.0.0.1:35546->127.0.0.11:53: i/o timeout
+sh-4.4# docker --storage-opt mount_program=/usr/bin/fuse-overlayfs pull ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+✔ docker.io/ceph/ceph:v16.2.5
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Getting image source signatures
+Copying blob 77890c5669f6 done  
+Copying blob 7a0437f04f83 done  
+Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root101388757: operation not permitted
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: e7ebb792-cca4-11ec-98ac-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: f4d8259e-cca4-11ec-a25c-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 15619642-cca5-11ec-a32a-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker  bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 1d23c026-cca5-11ec-8f2b-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# cephadm --docker --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 21f2cbb0-cca5-11ec-8c55-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker --image docker.io/ceph/ceph:v16.2.5 --storage-opt mount_program=/usr/bin/fuse-overlayfs bootstrap --mon-ip 172.21.0.2:6000
+usage: cephadm [-h] [--image IMAGE] [--docker] [--data-dir DATA_DIR]
+               [--log-dir LOG_DIR] [--logrotate-dir LOGROTATE_DIR]
+               [--sysctl-dir SYSCTL_DIR] [--unit-dir UNIT_DIR] [--verbose]
+               [--timeout TIMEOUT] [--retry RETRY] [--env ENV]
+               [--no-container-init]
+               {version,pull,inspect-image,ls,list-networks,adopt,rm-daemon,rm-cluster,run,shell,enter,ceph-volume,zap-osds,unit,logs,bootstrap,deploy,check-host,prepare-host,add-repo,rm-repo,install,registry-login,gather-facts,exporter,host-maintenance}
+               ...
+cephadm: error: invalid choice: 'mount_program=/usr/bin/fuse-overlayfs' (choose from 'version', 'pull', 'inspect-image', 'ls', 'list-networks', 'adopt', 'rm-daemon', 'rm-cluster', 'run', 'shell', 'enter', 'ceph-volume', 'zap-osds', 'unit', 'logs', 'bootstrap', 'deploy', 'check-host', 'prepare-host', 'add-repo', 'rm-repo', 'install', 'registry-login', 'gather-facts', 'exporter', 'host-maintenance')
+sh-4.4# cephadm --docker --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 413065e6-cca5-11ec-991b-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+sh-4.4# docker --storage-opt mount_program=/usr/bin/fuse-overlayfs pull docker.io/ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Getting image source signatures
+Copying blob 77890c5669f6 done  
+Copying blob 7a0437f04f83 done  
+Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root293699698: operation not permitted
+sh-4.4# podman --storage-opt mount_program=/usr/bin/fuse-overlayfs pull docker.io/ceph/ceph:v16.2.5
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Getting image source signatures
+Copying blob 77890c5669f6 done  
+Copying blob 7a0437f04f83 done  
+Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root037124084: operation not permitted
+sh-4.4# ls /etc/  
+Display all 171 possibilities? (y or n)
+sh-4.4# docker        
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: missing command 'podman COMMAND'
+Try 'podman --help' for more information.
+sh-4.4# cephadm bootstrap
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# podman version
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# ls /usr/bin/
+Display all 614 possibilities? (y or n)
+sh-4.4# ls /usr/bin/podman 
+.dockerenv  etc/        lib64/      mnt/        root/       srv/        usr/        
+bin/        home/       lost+found/ opt/        run/        sys/        var/        
+dev/        lib/        media/      proc/       sbin/       tmp/        
+sh-4.4# ls /usr/bin/podman 
+podman
+sh-4.4# ls /usr/bin/podman 
+podman
+sh-4.4# ls /usr/bin/podman 
+podman
+sh-4.4# ls /usr/bin/podman 
+podman
+sh-4.4# ls /usr/bin/podman 
+podman
+sh-4.4# ls /usr/bin/podman 
+/usr/bin/podman
+sh-4.4# /var/run/
+ceph/       console/    cryptsetup/ libpod/     lsm/        podman/     sepermit/   systemd/    
+cephadm/    containers/ dbus/       lock/       lvm/        rpcbind/    setrans/    udev/       
+chrony/     criu/       faillock/   log/        mount/      samba/      sudo/       user/       
+sh-4.4# /var/run/containers/MBP-de-Tom:~ tom$ 
+MBP-de-Tom:~ tom$ 
+MBP-de-Tom:~ tom$ 
+MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 33  bytes 3454 (3.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 22  bytes 1848 (1.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 8  bytes 888 (888.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8  bytes 888 (888.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 09b07b98-cca9-11ec-a17d-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# sudo cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 1536b626-cca9-11ec-826e-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /bin/docker pull docker.io/ceph/ceph:v16
+/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# touch /etc/docker/daemon.json
+touch: cannot touch '/etc/docker/daemon.json': No such file or directory
+sh-4.4# ls /etc/d
+dbus-1/        default/       depmod.d/      dhcp/          dnf/           dracut.conf    dracut.conf.d/
+sh-4.4# ls /etc/d
+dbus-1/        default/       depmod.d/      dhcp/          dnf/           dracut.conf    dracut.conf.d/
+sh-4.4# ls /etc/po 
+polkit-1/ popt.d/   
+sh-4.4# ls /etc/po
+polkit-1/ popt.d/   
+sh-4.4# sudo systemctl stop docker
+Failed to stop docker.service: Unit docker.service not loaded.
+sh-4.4# sudo systemctl start docker
+Failed to start docker.service: Unit docker.service not found.
+sh-4.4# sudo systemctl start podman
+sh-4.4# sudo cephadm --docker bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 74b05dd2-cca9-11ec-b2fd-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /bin/docker pull docker.io/ceph/ceph:v16
+/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /bin/docker pull docker.io/ceph/ceph:v16
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: ad8b2696-cca9-11ec-9a82-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull ceph/ceph:v16.2.5
+sh-4.4# 
+sh-4.4# ls /bin/docker 
+.dockerenv  etc/        lib64/      mnt/        root/       srv/        usr/        
+bin/        home/       lost+found/ opt/        run/        sys/        var/        
+dev/        lib/        media/      proc/       sbin/       tmp/        
+sh-4.4# ls /bin/docker 
+.dockerenv  etc/        lib64/      mnt/        root/       srv/        usr/        
+bin/        home/       lost+found/ opt/        run/        sys/        var/        
+dev/        lib/        media/      proc/       sbin/       tmp/        
+sh-4.4# ls /bin/docker 
+/bin/docker
+sh-4.4# touch /bin/docker/daemon.json
+touch: cannot touch '/bin/docker/daemon.json': Not a directory
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2     
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 79372876-ccaa-11ec-8a18-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull ceph/ceph:v16.2.5
+sh-4.4# docker pull ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# sudo docker pull ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap                    
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 891dc884-ccab-11ec-abf6-0242ac150002
+ERROR: must specify --mon-ip or --mon-addrv
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 8ceee5d8-ccab-11ec-8799-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 9aa4c080-ccab-11ec-afaa-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull ceph/ceph:v16.2.5
+sh-4.4# /etc/containers/  
+certs.d/           oci/               registries.conf.d/ registries.d/      
+sh-4.4# /etc/containers/
+sh: /etc/containers/: Is a directory
+sh-4.4# docker info
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman info
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# yum install podman
+Last metadata expiration check: 1 day, 21:11:40 ago on Tue May  3 22:34:15 2022.
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Package podman-3.3.1-9.module_el8.5.0+988+b1f0b741.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+sh-4.4# sudo docker pull ceph/ceph:v16.2.5
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# sudo docker pull ceph/ceph:v16.2.5 --storage-opt mount_program=/usr/bin/fuse-overlayfs
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+✔ docker.io/ceph/ceph:v16.2.5
+Trying to pull docker.io/ceph/ceph:v16.2.5...
+Getting image source signatures
+Copying blob 77890c5669f6 done  
+Copying blob 7a0437f04f83 done  
+Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root119617048: operation not permitted
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Resolved "registry" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
+Trying to pull docker.io/library/registry:2...
+Getting image source signatures
+Copying blob c50f110701a7 done  
+Copying blob b6846b9db566 done  
+Copying blob df9b9388f04a done  
+Copying blob b0a23bbf973d done  
+Copying blob 52dc419b0ee2 done  
+Error: writing blob: adding layer with blob "sha256:df9b9388f04ad6279a7410b85cedfdcb2208c0a003da7ab5613af71079148139": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root067244605: operation not permitted
+sh-4.4# sudo podman run --privileged -d --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Resolved "registry" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
+Trying to pull docker.io/library/registry:2...
+Getting image source signatures
+Copying blob 52dc419b0ee2 done  
+Copying blob df9b9388f04a done  
+Copying blob c50f110701a7 done  
+Copying blob b0a23bbf973d done  
+Copying blob b6846b9db566 done  
+Error: writing blob: adding layer with blob "sha256:df9b9388f04ad6279a7410b85cedfdcb2208c0a003da7ab5613af71079148139": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root000542146: operation not permitted
+sh-4.4# podman image prune  
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# sudo podman image prune
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# ls -al var/
+.updated  cache/    db/       ftp/      gopher/   lib/      lock/     mail/     opt/      run/      tmp/
+adm/      crash/    empty/    games/    kerberos/ local/    log/      nis/      preserve/ spool/    yp/
+sh-4.4# nano /etc/containers/storage.conf 
+sh: nano: command not found
+sh-4.4# yum install nano
+Last metadata expiration check: 1 day, 21:31:40 ago on Tue May  3 22:34:15 2022.
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Dependencies resolved.
+=======================================================================================================================
+ Package                  Architecture               Version                          Repository                  Size
+=======================================================================================================================
+Installing:
+ nano                     x86_64                     2.9.8-1.el8                      baseos                     581 k
+
+Transaction Summary
+=======================================================================================================================
+Install  1 Package
+
+Total download size: 581 k
+Installed size: 2.2 M
+Is this ok [y/N]: y
+Downloading Packages:
+^[[Anano-2.9.8-1.el8.x86_64.rpm               0% [                                       ] ---  B/s |   0  B     --:-- nano-2.9.8-1.el8.x86_64.rpm                                                             97 kB/s | 581 kB     00:06    
+-----------------------------------------------------------------------------------------------------------------------
+Total                                                                                   97 kB/s | 581 kB     00:06     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                               1/1 
+  Installing       : nano-2.9.8-1.el8.x86_64                                                                       1/1 
+  Running scriptlet: nano-2.9.8-1.el8.x86_64                                                                       1/1 
+  Verifying        : nano-2.9.8-1.el8.x86_64                                                                       1/1 
+
+Installed:
+  nano-2.9.8-1.el8.x86_64                                                                                              
+
+Complete!
+sh-4.4# nano /etc/containers/storage.conf 
+sh-4.4# yum install fuse-overlayfs
+Last metadata expiration check: 1 day, 21:33:24 ago on Tue May  3 22:34:15 2022.
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Module yaml error: Unexpected key in data: static_context [line 9 col 3]
+Package fuse-overlayfs-1.7.1-1.module_el8.5.0+890+6b136101.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+sh-4.4# sudo podman run --privileged -d --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Resolved "registry" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
+Trying to pull docker.io/library/registry:2...
+Getting image source signatures
+Copying blob df9b9388f04a done  
+Copying blob c50f110701a7 done  
+Copying blob 52dc419b0ee2 done  
+Error: writing blob: adding layer with blob "sha256:df9b9388f04ad6279a7410b85cedfdcb2208c0a003da7ab5613af71079148139": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742: operation not permitted
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742
+mkdir: cannot create directory '/var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742': No such file or directory
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742
+mkdir: cannot create directory '/var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742': No such file or directory
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/                    
+mkdir: cannot create directory '/var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/': No such file or directory
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff
+mkdir: cannot create directory '/var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff': No such file or directory
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628    
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff
+sh-4.4# mkdir /var/lib/containers/storage/overlay/4fc242d58285699eca05db3cc7c7122a2b8e014d9481f323bd9277baacfa0628/diff/.pivot_root294725742
+sh-4.4# sudo podman run --privileged -d --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Resolved "registry" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
+Trying to pull docker.io/library/registry:2...
+Getting image source signatures
+Copying blob c50f110701a7 done  
+Copying blob b6846b9db566 done  
+Copying blob 52dc419b0ee2 done  
+Copying blob df9b9388f04a done  
+Copying blob b0a23bbf973d done  
+Copying config 2e200967d1 done  
+Writing manifest to image destination
+Storing signatures
+Error: statfs /var/lib/registry: no such file or directory
+sh-4.4# mkdir /var/lib/registry
+sh-4.4# sudo podman run --privileged -d --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: container create failed (no logs from conmon): EOF
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: error creating container storage: the container name "registry" is already in use by "968a9e868a290efcad8a096d899debfdbca2e5506d2abb04de5f888bcc328629". You have to remove that container to be able to reuse that name.: that name is already in use
+sh-4.4# cephadm --image localhost:6000/ceph/ceph bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: b88b987c-ccaf-11ec-b3ac-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image localhost:6000/ceph/ceph...
+Non-zero exit code 125 from /usr/bin/podman pull localhost:6000/ceph/ceph
+/usr/bin/podman: stderr Trying to pull localhost:6000/ceph/ceph:latest...
+/usr/bin/podman: stderr time="2022-05-05T20:12:43Z" level=warning msg="failed, retrying in 1s ... (1/3). Error: initializing source docker://localhost:6000/ceph/ceph:latest: pinging container registry localhost:6000: Get \"https://localhost:6000/v2/\": dial tcp 127.0.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr time="2022-05-05T20:12:44Z" level=warning msg="failed, retrying in 1s ... (2/3). Error: initializing source docker://localhost:6000/ceph/ceph:latest: pinging container registry localhost:6000: Get \"https://localhost:6000/v2/\": dial tcp 127.0.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr time="2022-05-05T20:12:45Z" level=warning msg="failed, retrying in 1s ... (3/3). Error: initializing source docker://localhost:6000/ceph/ceph:latest: pinging container registry localhost:6000: Get \"https://localhost:6000/v2/\": dial tcp 127.0.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr Error: initializing source docker://localhost:6000/ceph/ceph:latest: pinging container registry localhost:6000: Get "https://localhost:6000/v2/": dial tcp 127.0.0.1:6000: connect: connection refused
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull localhost:6000/ceph/ceph
+sh-4.4# ifconfig
+cni-podman0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 10.88.0.1  netmask 255.255.0.0  broadcast 10.88.255.255
+        ether ca:b5:f5:09:b8:28  txqueuelen 1000  (Ethernet)
+        RX packets 1  bytes 28 (28.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2  bytes 108 (108.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 330183  bytes 474397723 (452.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 99076  bytes 5497920 (5.2 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 285  bytes 29726 (29.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 285  bytes 29726 (29.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm --image 10.88.0.1:6000/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: e6a9cddc-ccaf-11ec-80d8-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image 10.88.0.1:6000/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/podman pull 10.88.0.1:6000/ceph/ceph:v16.2.5
+/usr/bin/podman: stderr Trying to pull 10.88.0.1:6000/ceph/ceph:v16.2.5...
+/usr/bin/podman: stderr time="2022-05-05T20:14:00Z" level=warning msg="failed, retrying in 1s ... (1/3). Error: initializing source docker://10.88.0.1:6000/ceph/ceph:v16.2.5: pinging container registry 10.88.0.1:6000: Get \"https://10.88.0.1:6000/v2/\": dial tcp 10.88.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr time="2022-05-05T20:14:01Z" level=warning msg="failed, retrying in 1s ... (2/3). Error: initializing source docker://10.88.0.1:6000/ceph/ceph:v16.2.5: pinging container registry 10.88.0.1:6000: Get \"https://10.88.0.1:6000/v2/\": dial tcp 10.88.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr time="2022-05-05T20:14:02Z" level=warning msg="failed, retrying in 1s ... (3/3). Error: initializing source docker://10.88.0.1:6000/ceph/ceph:v16.2.5: pinging container registry 10.88.0.1:6000: Get \"https://10.88.0.1:6000/v2/\": dial tcp 10.88.0.1:6000: connect: connection refused"
+/usr/bin/podman: stderr Error: initializing source docker://10.88.0.1:6000/ceph/ceph:v16.2.5: pinging container registry 10.88.0.1:6000: Get "https://10.88.0.1:6000/v2/": dial tcp 10.88.0.1:6000: connect: connection refused
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull 10.88.0.1:6000/ceph/ceph:v16.2.5
+sh-4.4# 
+sh-4.4# podman ps
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# docker ps
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# docker images
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+REPOSITORY                  TAG         IMAGE ID      CREATED      SIZE
+docker.io/library/registry  2           2e200967d166  4 weeks ago  24.7 MB
+sh-4.4# docker run -it 2e200967d166 sh
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: container create failed (no logs from conmon): EOF
+sh-4.4# docker ps
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# podman run --privileged -d -it --name registry -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: error creating container storage: the container name "registry" is already in use by "968a9e868a290efcad8a096d899debfdbca2e5506d2abb04de5f888bcc328629". You have to remove that container to be able to reuse that name.: that name is already in use
+sh-4.4# podman container ls
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# podman containers
+Error: unrecognized command `podman containers`
+
+Did you mean this?
+	container
+
+Try 'podman --help' for more information.
+sh-4.4# docker container ls
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# podman run --privileged -d -it --name registry1 -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: container create failed (no logs from conmon): EOF
+sh-4.4# rm /etc/containers/storage.conf 
+sh-4.4# podman run --privileged -d -it --name registry1 -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: error creating container storage: the container name "registry1" is already in use by "2b9be9b18c5c5dc1dad81ec93474410f02d26ec261329333435e8e7c3f7b5b74". You have to remove that container to be able to reuse that name.: that name is already in use
+sh-4.4# cephadm --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# 
+sh-4.4# ifconfig
+cni-podman0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 10.88.0.1  netmask 255.255.0.0  broadcast 10.88.255.255
+        ether ca:b5:f5:09:b8:28  txqueuelen 1000  (Ethernet)
+        RX packets 6  bytes 308 (308.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2  bytes 108 (108.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 330229  bytes 474401095 (452.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 99124  bytes 5501472 (5.2 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 301  bytes 30526 (29.8 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 301  bytes 30526 (29.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 127.0.0.1
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# 
+sh-4.4# cephadm --docker --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 127.0.0.1
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 25be7af8-ccb1-11ec-92fd-0242ac150002
+Verifying IP 127.0.0.1 port 3300 ...
+Verifying IP 127.0.0.1 port 6789 ...
+ERROR: Cannot infer CIDR network for mon IP `127.0.0.1`: pass --skip-mon-network to configure it later
+sh-4.4# cephadm --docker --skip-mon-network --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 127.0.0.1
+usage: cephadm [-h] [--image IMAGE] [--docker] [--data-dir DATA_DIR]
+               [--log-dir LOG_DIR] [--logrotate-dir LOGROTATE_DIR]
+               [--sysctl-dir SYSCTL_DIR] [--unit-dir UNIT_DIR] [--verbose]
+               [--timeout TIMEOUT] [--retry RETRY] [--env ENV]
+               [--no-container-init]
+               {version,pull,inspect-image,ls,list-networks,adopt,rm-daemon,rm-cluster,run,shell,enter,ceph-volume,zap-osds,unit,logs,bootstrap,deploy,check-host,prepare-host,add-repo,rm-repo,install,registry-login,gather-facts,exporter,host-maintenance}
+               ...
+cephadm: error: unrecognized arguments: --skip-mon-network
+sh-4.4# cephadm --docker --no-container-init --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 127.0.0.1
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 41da00b8-ccb1-11ec-aacf-0242ac150002
+Verifying IP 127.0.0.1 port 3300 ...
+Verifying IP 127.0.0.1 port 6789 ...
+ERROR: Cannot infer CIDR network for mon IP `127.0.0.1`: pass --skip-mon-network to configure it later
+sh-4.4# cephadm --docker --no-container-init --image 10.88.0.1/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 47a599b2-ccb1-11ec-9585-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image 10.88.0.1/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull 10.88.0.1/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull 10.88.0.1/ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker --no-container-init --image 172.21.0.2/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 663c834a-ccb1-11ec-937e-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image 172.21.0.2/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull 172.21.0.2/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull 172.21.0.2/ceph/ceph:v16.2.5
+sh-4.4# cephadm --docker --no-container-init --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/docker) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 6ee8cb34-ccb1-11ec-bcd2-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16.2.5...
+Non-zero exit code 125 from /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+/usr/bin/docker: stderr Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+/usr/bin/docker: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/docker pull docker.io/ceph/ceph:v16.2.5
+sh-4.4# cephadm --podman --no-container-init --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+usage: cephadm [-h] [--image IMAGE] [--docker] [--data-dir DATA_DIR]
+               [--log-dir LOG_DIR] [--logrotate-dir LOGROTATE_DIR]
+               [--sysctl-dir SYSCTL_DIR] [--unit-dir UNIT_DIR] [--verbose]
+               [--timeout TIMEOUT] [--retry RETRY] [--env ENV]
+               [--no-container-init]
+               {version,pull,inspect-image,ls,list-networks,adopt,rm-daemon,rm-cluster,run,shell,enter,ceph-volume,zap-osds,unit,logs,bootstrap,deploy,check-host,prepare-host,add-repo,rm-repo,install,registry-login,gather-facts,exporter,host-maintenance}
+               ...
+cephadm: error: unrecognized arguments: --podman
+sh-4.4# cephadm --no-container-init --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# cephadm --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# cephadm --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# cephadm --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# cephadm --image docker.io/ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2
+Non-zero exit code 125 from /usr/bin/podman version --format {{.Client.Version}}
+/usr/bin/podman: stderr Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8216, in main
+    check_container_engine(ctx)
+  File "/usr/sbin/cephadm", line 1985, in check_container_engine
+    engine.get_version(ctx)
+  File "/usr/sbin/cephadm", line 188, in get_version
+    out, _, _ = call_throws(ctx, [self.path, 'version', '--format', '{{.Client.Version}}'])
+  File "/usr/sbin/cephadm", line 1453, in call_throws
+    raise RuntimeError('Failed command: %s' % ' '.join(command))
+RuntimeError: Failed command: /usr/bin/podman version --format {{.Client.Version}}
+sh-4.4# docker images
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman images
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# sudo podman images
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# 
+sh-4.4# docker container ls
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# nano /etc/containers/
+certs.d/           oci/               policy.json        registries.conf    registries.conf.d/ registries.d/
+sh-4.4# podman run --privileged -d -it --name registry2 -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman run --privileged -d -it --name registry2 -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2 
+Error: container create failed (no logs from conmon): EOF
+sh-4.4# sudo podman run --privileged -d -it --name registry3 -p 6000:6000 --storage-opt mount_program=/usr/bin/fuse-overlayfs -v /var/lib/registry:/var/lib/registry --restart=always registry:2 
+
+Error: container create failed (no logs from conmon): EOF
+sh-4.4# 
+sh-4.4# MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# podman run --privileged -it -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2 sh
+Failed to read /etc/containers/storage.conf Near line 159 (last key parsed 'storage.options.thinpool'): expected '.' or '=', but got ':' instead
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# podman run --privileged -it -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Failed to read /etc/containers/storage.conf Near line 159 (last key parsed 'storage.options.thinpool'): expected '.' or '=', but got ':' instead
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# podman run --privileged -it -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Failed to read /etc/containers/storage.conf Near line 159 (last key parsed 'storage.options.thinpool'): expected '.' or '=', but got ':' instead
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Failed to read /etc/containers/storage.conf Near line 159 (last key parsed 'storage.options.thinpool'): expected '.' or '=', but got ':' instead
+Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# 
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: statfs /var/lib/registry: no such file or directory
+sh-4.4# exit
+exit
+MBP-de-Tom:~ tom$ docker exec -it ceph sh
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: statfs /var/lib/registry: no such file or directory
+sh-4.4# 
+sh-4.4# 
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: statfs /var/lib/registry: no such file or directory
+sh-4.4# mkdir /var/lib/registry
+sh-4.4# podman run --privileged -d --name registry -p 6000:6000 -v /var/lib/registry:/var/lib/registry --restart=always registry:2
+Error: error creating container storage: the container name "registry" is already in use by "968a9e868a290efcad8a096d899debfdbca2e5506d2abb04de5f888bcc328629". You have to remove that container to be able to reuse that name.: that name is already in use
+sh-4.4# podman container ls
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+sh-4.4# podman images
+REPOSITORY                  TAG         IMAGE ID      CREATED      SIZE
+docker.io/library/registry  2           2e200967d166  4 weeks ago  24.7 MB
+sh-4.4# podman run -it 2e200967d166
+ERRO[0000] error loading cached network config: network "podman" not found in CNI cache 
+WARN[0000] falling back to loading from existing plugins on disk 
+ERRO[0000] Error tearing down partially created network namespace for container fb4fad90c98d949368a50423f673709caff377193da20d8fad06563d7988e188: CNI network "podman" not found 
+Error: error configuring network namespace for container fb4fad90c98d949368a50423f673709caff377193da20d8fad06563d7988e188: CNI network "podman" not found
+sh-4.4# docker run -it 2e200967d166
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+ERRO[0000] error loading cached network config: network "podman" not found in CNI cache 
+WARN[0000] falling back to loading from existing plugins on disk 
+ERRO[0000] Error tearing down partially created network namespace for container 9812b9dfc6966e7e5e4d99a3b500b79d59e5eb5e0e8c3195c5efdad82dae597d: CNI network "podman" not found 
+Error: error configuring network namespace for container 9812b9dfc6966e7e5e4d99a3b500b79d59e5eb5e0e8c3195c5efdad82dae597d: CNI network "podman" not found
+sh-4.4# cephadm bootstrap
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 130a62a2-ccb4-11ec-8eb3-0242ac150002
+ERROR: must specify --mon-ip or --mon-addrv
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 68  bytes 6064 (5.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 52  bytes 4068 (3.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 8  bytes 888 (888.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8  bytes 888 (888.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 2185a044-ccb4-11ec-aace-0242ac150002
+Verifying IP 172.21.0.2 port 3300 ...
+Verifying IP 172.21.0.2 port 6789 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/podman pull docker.io/ceph/ceph:v16
+/usr/bin/podman: stderr Trying to pull docker.io/ceph/ceph:v16...
+/usr/bin/podman: stderr Error: initializing source docker://ceph/ceph:v16: pinging container registry registry-1.docker.io: Get "https://registry-1.docker.io/v2/": net/http: TLS handshake timeout
+`/usr/bin/podman pull docker.io/ceph/ceph:v16` failed transiently. Retrying. waiting 1 seconds...
+
+
+
+^CTraceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3306, in _pull_image
+    out, err, ret = call(ctx, cmd)
+  File "/usr/sbin/cephadm", line 1433, in call
+    stdout, stderr, returncode = async_run(run_with_timeout())
+  File "/usr/sbin/cephadm", line 1373, in async_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 471, in run_until_complete
+Loop <_UnixSelectorEventLoop running=False closed=True debug=False> that handles pid 346 is closed
+    self.run_forever()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 438, in run_forever
+    self._run_once()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 1415, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/usr/lib64/python3.6/selectors.py", line 445, in select
+    fd_event_list = self._epoll.poll(timeout, max_ev)
+KeyboardInterrupt
+Exception ignored in: <bound method BaseSubprocessTransport.__del__ of <_UnixSubprocessTransport closed pid=346 running stdout=<_UnixReadPipeTransport closing fd=8 open> stderr=<_UnixReadPipeTransport fd=10 open>>>
+Traceback (most recent call last):
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 132, in __del__
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 106, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 423, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 452, in _close
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 591, in call_soon
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 377, in _check_closed
+RuntimeError: Event loop is closed
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: f0073fb8-ccb4-11ec-96da-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+Non-zero exit code 125 from /usr/bin/podman pull docker.io/ceph/ceph:v16
+/usr/bin/podman: stderr Trying to pull docker.io/ceph/ceph:v16...
+/usr/bin/podman: stderr Getting image source signatures
+/usr/bin/podman: stderr Copying blob sha256:77890c5669f6b6c6924b8fca572f4f533c69239091810f2d2495b0df611f7263
+/usr/bin/podman: stderr Copying blob sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621
+/usr/bin/podman: stderr Copying blob sha256:77890c5669f6b6c6924b8fca572f4f533c69239091810f2d2495b0df611f7263
+/usr/bin/podman: stderr Copying blob sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621
+/usr/bin/podman: stderr Error: writing blob: adding layer with blob "sha256:7a0437f04f83f084b7ed68ad9c4a4947e12fc4e1b006b38129bac89114ec3621": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff/.pivot_root425614949: operation not permitted
+Traceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3311, in _pull_image
+    raise RuntimeError('Failed command: %s' % cmd_str)
+RuntimeError: Failed command: /usr/bin/podman pull docker.io/ceph/ceph:v16
+sh-4.4# 
+sh-4.4# mkdir /var/lib/containers/storage/
+mkdir: cannot create directory '/var/lib/containers/storage/': File exists
+sh-4.4# mkdir /var/lib/containers/storage/overlay
+mkdir: cannot create directory '/var/lib/containers/storage/overlay': File exists
+sh-4.4# mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859
+sh-4.4# mkdir /var/lib/containers/storage/overlay/2653d992f4ef2bfd27f94db643815aa567240c37732cae1405ad1c1309ee9859/diff
+sh-4.4# cephadm bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 4ea75d08-ccbc-11ec-ae05-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+^CTraceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+Loop <_UnixSelectorEventLoop running=False closed=True debug=False> that handles pid 497 is closed
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3306, in _pull_image
+    out, err, ret = call(ctx, cmd)
+  File "/usr/sbin/cephadm", line 1433, in call
+    stdout, stderr, returncode = async_run(run_with_timeout())
+  File "/usr/sbin/cephadm", line 1373, in async_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 471, in run_until_complete
+    self.run_forever()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 438, in run_forever
+    self._run_once()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 1415, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/usr/lib64/python3.6/selectors.py", line 445, in select
+    fd_event_list = self._epoll.poll(timeout, max_ev)
+KeyboardInterrupt
+Exception ignored in: <bound method BaseSubprocessTransport.__del__ of <_UnixSubprocessTransport closed pid=497 running stdout=<_UnixReadPipeTransport closing fd=8 open> stderr=<_UnixReadPipeTransport fd=10 open>>>
+Traceback (most recent call last):
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 132, in __del__
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 106, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 423, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 452, in _close
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 591, in call_soon
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 377, in _check_closed
+RuntimeError: Event loop is closed
+sh-4.4# /usr/local/bin/systemctl start chronyd -d
+Usage: systemctl [options] command [name...]
+
+systemctl: error: no such option: -d
+sh-4.4# /usr/local/bin/systemctl start chronyd   
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 646596  bytes 907275526 (865.2 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 147278  bytes 8021682 (7.6 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 140  bytes 14976 (14.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 140  bytes 14976 (14.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm bootstrap --mon-ip 127.0.0.1:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 13eaf29a-ccbe-11ec-ae1a-0242ac150002
+Address: 127.0.0.1:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 127.0.0.1 port 6000 ...
+ERROR: Cannot infer CIDR network for mon IP `127.0.0.1`: pass --skip-mon-network to configure it later
+sh-4.4# 
+sh-4.4# cephadm bootstrap --mon-ip 127.0.0.1:6000 --skip-mon-network
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 2042fd6c-ccbe-11ec-883d-0242ac150002
+Address: 127.0.0.1:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 127.0.0.1 port 6000 ...
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image docker.io/ceph/ceph:v16...
+^CTraceback (most recent call last):
+  File "/usr/sbin/cephadm", line 8230, in <module>
+    main()
+  File "/usr/sbin/cephadm", line 8218, in main
+    r = ctx.func(ctx)
+  File "/usr/sbin/cephadm", line 1759, in _default_image
+    return func(ctx)
+  File "/usr/sbin/cephadm", line 4028, in command_bootstrap
+    _pull_image(ctx, ctx.image)
+  File "/usr/sbin/cephadm", line 3306, in _pull_image
+    out, err, ret = call(ctx, cmd)
+  File "/usr/sbin/cephadm", line 1433, in call
+Loop <_UnixSelectorEventLoop running=False closed=True debug=False> that handles pid 629 is closed
+    stdout, stderr, returncode = async_run(run_with_timeout())
+  File "/usr/sbin/cephadm", line 1373, in async_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 471, in run_until_complete
+    self.run_forever()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 438, in run_forever
+    self._run_once()
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 1415, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/usr/lib64/python3.6/selectors.py", line 445, in select
+    fd_event_list = self._epoll.poll(timeout, max_ev)
+KeyboardInterrupt
+Exception ignored in: <bound method BaseSubprocessTransport.__del__ of <_UnixSubprocessTransport closed pid=629 running stdout=<_UnixReadPipeTransport closing fd=8 open> stderr=<_UnixReadPipeTransport fd=10 open>>>
+Traceback (most recent call last):
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 132, in __del__
+  File "/usr/lib64/python3.6/asyncio/base_subprocess.py", line 106, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 423, in close
+  File "/usr/lib64/python3.6/asyncio/unix_events.py", line 452, in _close
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 591, in call_soon
+  File "/usr/lib64/python3.6/asyncio/base_events.py", line 377, in _check_closed
+RuntimeError: Event loop is closed
+sh-4.4# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.21.0.2  netmask 255.255.0.0  broadcast 172.21.255.255
+        ether 02:42:ac:15:00:02  txqueuelen 0  (Ethernet)
+        RX packets 939344  bytes 1340283526 (1.2 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 218983  bytes 11914260 (11.3 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 176  bytes 18760 (18.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 176  bytes 18760 (18.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+sh-4.4# cephadm bootstrap --mon-ip 127.0.0.1:6000 --skip-mon-networkcephadm --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+usage: cephadm [-h] [--image IMAGE] [--docker] [--data-dir DATA_DIR]
+               [--log-dir LOG_DIR] [--logrotate-dir LOGROTATE_DIR]
+               [--sysctl-dir SYSCTL_DIR] [--unit-dir UNIT_DIR] [--verbose]
+               [--timeout TIMEOUT] [--retry RETRY] [--env ENV]
+               [--no-container-init]
+               {version,pull,inspect-image,ls,list-networks,adopt,rm-daemon,rm-cluster,run,shell,enter,ceph-volume,zap-osds,unit,logs,bootstrap,deploy,check-host,prepare-host,add-repo,rm-repo,install,registry-login,gather-facts,exporter,host-maintenance}
+               ...
+cephadm: error: unrecognized arguments: --skip-mon-networkcephadm --image ceph/ceph:v16.2.5 bootstrap
+sh-4.4# cephadm --image ceph/ceph:v16.2.5 bootstrap --mon-ip 172.21.0.2:6000
+Verifying podman|docker is present...
+Verifying lvm2 is present...
+Verifying time synchronization is in place...
+Unit chronyd.service is enabled and running
+Repeating the final host check...
+podman|docker (/usr/bin/podman) is present
+systemctl is present
+lvcreate is present
+Unit chronyd.service is enabled and running
+Host looks OK
+Cluster fsid: 7ea78854-ccbf-11ec-b9c4-0242ac150002
+Address: 172.21.0.2:6000 is not a valid IP address
+Using msgr2 protocol for unrecognized port 6000
+Verifying IP 172.21.0.2 port 6000 ...
+Mon IP `172.21.0.2` is in CIDR network `172.21.0.0/16`
+- internal network (--cluster-network) has not been provided, OSD replication will default to the public_network
+Pulling container image ceph/ceph:v16.2.5...
+MBP-de-Tom:~ tom$ 
