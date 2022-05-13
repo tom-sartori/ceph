@@ -20,4 +20,18 @@ RUN yum -y install container-selinux
 
 RUN dnf install -y @container-tools
 
+
+RUN dnf makecache --refresh
+RUN dnf -y install fuse-overlayfs
+COPY ./storage.conf /etc/containers/storage.conf
+
+
+RUN yum install -y iproute
+RUN yum install -y net-tools
+
+
+RUN dnf makecache --refresh
+RUN dnf -y install chrony
+
+
 CMD [ "/sbin/init" ]

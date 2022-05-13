@@ -1,6 +1,3 @@
-docker-compose up --build --force-recreate -d
-docker exec -it ceph sh
-
 
 # System update. 
 dnf config-manager --set-enabled powertools	
@@ -25,3 +22,22 @@ yum -y install container-selinux
 
 # Podman installation. 
 dnf install -y @container-tools
+
+
+# fuse-overlayfs installation. 
+dnf makecache --refresh
+dnf -y install fuse-overlayfs
+nano /etc/containers/storage.conf
+
+
+# Installation ip and ifconfig. 
+yum install -y iproute			
+yum install -y net-tools
+
+
+# Chrony installation. 
+dnf makecache --refresh
+dnf -y install chrony
+
+
+

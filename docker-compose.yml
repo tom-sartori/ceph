@@ -2,6 +2,9 @@ services:
   ceph: 
     build: .  
     container_name: ceph
+    ports: 
+      - 3300:3300
+      - 6789:6789
 
     stdin_open: true # docker run -i
     tty: true        # docker run -t
@@ -10,7 +13,6 @@ services:
     cap_add:
       - SYS_ADMIN
 
-    volumes:
-      - ./volume/:/var/lib/containers/
+
 
 

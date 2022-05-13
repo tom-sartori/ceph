@@ -25,6 +25,10 @@ Requirements
 	LVM2 for provisioning storage devices
 
 
+
+
+
+
 cephadm bootstrap
 
 	ERROR: No container engine binary found (podman or docker). Try run `apt/dnf/yum/zypper install <container engine>`
@@ -48,41 +52,11 @@ ifconfig
 	172.20.0.2
 
 
-cephadm bootstrap --mon-ip 172.20.0.2
-
+cephadm bootstrap --mon-ip 172.21.0.2
+cephadm bootstrap --mon-ip 127.0.0.1
 
 cephadm install
 cephadm install ceph-common
-
-
-
-https://podman.io/getting-started/installation
-
-	yum install -y \
-		conmon \
-		containernetworking-plugins \
-		containers-common \
-		crun \
-		git \
-		glib2-devel \
-		glibc-devel \
-		go \
-		golang-github-cpuguy83-md2man \
-		iptables \
-		libgpg-error-devel \
-		libseccomp-devel \
-		libselinux-devel \
-		make \
-		pkgconfig
-
-	sysctl kernel.unprivileged_userns_clone=1
-
-	echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
-
-
-
-yum install policycoreutils-python-utils
-
 
 
 
@@ -137,22 +111,75 @@ Error: 'overlay' is not supported over overlayfs, a mount_program is required: b
 Error: kernel does not support overlay fs: unable to create kernel-style whiteout: operation not permitted
 
 
-
-
-
-
-
-
-
 # fuse-overlayfs installation. 
 	dnf makecache --refresh
 	dnf -y install fuse-overlayfs
+	nano /etc/containers/storage.conf
+
+
+# Podman works. 
+
+
+# Installation ip. 
+
+cephadm bootstrap --mon-ip 172.21.0.2
+FileNotFoundError: unable to find 'ip' command
+	yum install -y iproute
+
+
+
+cephadm bootstrap --mon-ip 172.21.0.2
+
+	/usr/bin/podman: stderr Error: writing blob: adding layer with blob "sha256:a0b8f3931ffa135ca2f8108ce3048d844c3d4de6779879880a986e3ed86dc124": Error processing tar file(exit status 1): Error setting up pivot dir: mkdir /var/lib/containers/storage/overlay/3813924f3fa4d6d1223ec6c5e8bb2f5f9acd1e49d87a9251364ff99ab52b3296/diff/.pivot_root1580789933: operation not permitted
+	ERROR: Failed command: /usr/bin/podman pull quay.io/ceph/ceph:v17
+
+	# Error due to the volume and selinux. 
+
+	# Volume removed. 
+
+-> Waiting mon...
 
 
 
 
 
-# LVM2 setup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Podman installation
+	dnf config-manager --set-enabled powertools	
+	dnf -y update	
+	dnf module list | grep container-tools
+	dnf install -y @container-tools
+
+
+# Chrony installation. 
+	dnf makecache --refresh
+	dnf -y install chrony
+
+
+# Buildah installation. 
+	dnf makecache --refresh
+	dnf -y install buildah
+
+
+# LVM2 setup. 
 	https://installati.one/centos/8/lvm2/
 
 	dnf makecache --refresh
@@ -164,6 +191,14 @@ Error: kernel does not support overlay fs: unable to create kernel-style whiteou
 
 
 
+    volumes:
+      - ./volume/:/var/lib/containers/
+
+
+
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
 
 
     devices:
